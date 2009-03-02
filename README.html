@@ -1,0 +1,12 @@
+<h1>The Purpose</h1>
+<p>I usually find myself looking for the list of states and cities of Mexico, however, in almost every software available for use as open source, the mentiones list is not included, usually the only pre-loaded one is the <span class="caps">USA</span> listings of states and cities (very rarely but sometimes they include the cities).</p>
+<h2>The Source</h2>
+<p>At the <span class="caps">SEPOMEX</span> (Mexico Post Service, by it&#8217;s spanish acronym), there is a web page <a href="http://www.correosdemexico.gob.mx/servicios/paginas/descargacp.aspx">Descarga C&oacute;digos Postales Mexicanos</a> that allows you to download a full listing in several formats, including <span class="caps">CSV</span> and <span class="caps">TXT</span> (pipe &#8216;|&#8217; separated). Unfortunately <span class="caps">CSV</span> format is damaged (not properly formatted), but the <span class="caps">TXT</span> one is pristine. Fields 3 and 4 are the city and state respectively. The original file you download is in iso-8859-1 format, while the script works with utf-8, so it&#8217;s probably wise to do something like this before (the file you download from <span class="caps">SEPOMEX</span> is named CPdescarga.txt):</p>
+<pre><code>iconv -f iso-8859-1 -t utf-8 CPdescarga.txt &gt; mexico.txt</code></pre>
+<h2>The Extractor</h2>
+<p>The extractor.rb file is a ruby script that takes this files you download from <span class="caps">SEPOMEX</span>, in <span class="caps">TXT</span> format, and parses and extracts a listing of mexican states and cities, over 2800 different cities and locations are extracted by the script. The output is to standard out, and in <span class="caps">YAML</span> format, so you can easily incorporate it in your own projects.</p>
+<p>The extractor.rb script expects to find the list of cities in the <span class="caps">TXT</span> format from <span class="caps">SEPOMEX</span>, but in utf-8 formatting. You don&#8217;t pass any parameters to extractor, and probably will need to pipe the output to a yaml file:</p>
+<pre><code>./extractor.rb &gt; mexico.yml</code></pre>
+<p>Progress text is output to standard error, so it doesn&#8217;t interfer with the yaml output.</p>
+<h2>Other Things in Project</h2>
+<p>The textilize.rb program is just a snippet converted to a command line utility to transform a .textile file to .html.</p>
