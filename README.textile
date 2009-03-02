@@ -4,9 +4,9 @@ I usually find myself looking for the list of states and cities of Mexico, howev
 
 h2. The Source
 
-At the SEPOMEX (Mexico Post Service, by it's spanish acronym), there is a web page "Descarga C&oacute;digos Postales Mexicanos":http://www.correosdemexico.gob.mx/servicios/paginas/descargacp.aspx that allows you to download a full listing in several formats, including CSV and TXT (pipe '|' separated). Unfortunately CSV format is damaged (not properly formatted), but the TXT one is pristine. Fields 3 and 4 are the city and state respectively. The original file you download is in iso-8859-1 format, while the script works with utf-8, so it's probably wise to do something like this before (the file you download from SEPOMEX is named CPdescarga.txt):
+At the SEPOMEX(Servicio Postal Mexicano) (Mexican Post Service, by it's spanish acronym), there is a web page "Descarga C&oacute;digos Postales Mexicanos":http://www.correosdemexico.gob.mx/servicios/paginas/descargacp.aspx that allows you to download a full listing in several formats, including CSV and TXT (pipe '|' separated). Unfortunately CSV format is damaged (not properly formatted), but the TXT one is pristine. Fields 3 and 4 are the city and state respectively. The original file you download is in iso-8859-1 format, while the script works with utf-8, so it's probably wise to do something like this before (the file you download from SEPOMEX is named CPdescarga.txt):
 
-bc. iconv -f iso-8859-1 -t utf-8 CPdescarga.txt > mexico.txt
+bq. @iconv -f iso-8859-1 -t utf-8 CPdescarga.txt > mexico.txt@
 
 h2. The Extractor
 
@@ -14,7 +14,7 @@ The extractor.rb file is a ruby script that takes this files you download from S
 
 The extractor.rb script expects to find the list of cities in the TXT format from SEPOMEX, but in utf-8 formatting. You don't pass any parameters to extractor, and probably will need to pipe the output to a yaml file:
 
-bc. ./extractor.rb > mexico.yml
+bq. @./extractor.rb > mexico.yml@
 
 Progress text is output to standard error, so it doesn't interfer with the yaml output.
 
